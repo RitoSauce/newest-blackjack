@@ -1,0 +1,434 @@
+#Kenny Schinke
+#version 1.0
+#blackjack V8
+# made 1/15/2018
+### THIS HAS THE SAVE FUNCTION.....
+import os
+import random
+money = 500
+end = False
+ins1 = True
+ins = True
+playagain = True
+playing = True
+house = False
+store = False
+casino = False
+blackjack = False
+sure = " "
+while playagain == True and end == False and money > 0 and playing == True:
+    if money == 0 or money <0:
+        continue
+    print("You have,", money, "dollars")
+    print("You have three choices on where you can go normally, but house and store is disabled")
+    print("Places: Store, Casino, House")
+    while True:
+        try:
+            setting = input("where you want to go?(or type leave, to leave)").lower()
+        except ValueError:
+            print("Dude what you doing put in a place")
+        if setting == "leave":
+            playing = False
+            break
+        if setting == "casino":
+            casino = True
+            break
+        if setting == "house" or setting == "store":
+            print("Those are disbaled try again")
+            continue
+        if setting != "casino" or setting != "house" or setting != "store":
+            print("Thats not a place, try again")
+            continue
+        else:
+            break
+    os.system('clear')
+    while casino == True and playing == True and money > 0:
+        if money == 0 or money < 0:
+            break
+        print("Welcome to the casino, you have a choice of games")
+        print("your games to play are...")
+        print("Blackjack, (other games are disabled at the moment)")
+        print("At any time type exit before a round starts to leave the table...")
+        table = " "
+        while True:
+            try:
+                table = input("What table would you like to go to? (or type leave to leave the casino...)")
+            except ValueError:
+                print("enter a valid table")
+            if table == "blackjack":
+                blackjack = True
+            if table =="leave":
+                print("Ok come back again!!")
+                casino = False
+                break
+            if table != "blackjack":
+                print("enter something valid please")
+                continue
+            else:
+                break
+        if casino == False:
+            break
+        start = 0
+        os.system('clear')
+        while blackjack == True and money > 0:
+            if money ==0 or money <0:
+                break
+            deck = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,
+                    3, 3, 3, 3,
+                    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5,
+                    5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+                    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8,
+                    8, 8, 8, 8,
+                    8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10,
+                    10, 10,
+                    10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+                    11, 12, 12, 12,
+                    12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,
+                    13, 13, 13, 13, ]
+            while ins1 == True:
+                while True:
+                    try:
+                        print("Welcome to blackjack!!!")
+                        instructions = input("Would you like instructions, on how to play?").lower()
+                    except ValueError:
+                        print("come on man")
+                    if instructions == "yes":
+                        ins = True
+                    else:
+                        ins = False
+                        print("alright no instructions")
+                        break
+                if ins == True:
+                    print("The instructions are simple..."
+                        "\nYou will be asked for a bet to start off the round"
+                        "\n if you wish to not play that round simply enter leave"
+                        "\n you must enter leave or else you will stay at the table."
+                        "\n the whole objective of the game is to get to or close to,"
+                        "\n 21 and see if you can be closer to it than the dealer."
+                        "\n after you hit which is adding cards, after you hit twice you,"
+                        "\n will be asked if you would like to double down, which doubles your current bet."
+                        "\n HAVE FUN , and GOOD LUCK!!")
+                ins1 = False
+                if ins1 == False:
+                    break
+            ins1 = False
+            input("Press enter to continue...")
+            os.system('clear')
+            print("You have, ", money, "dollars.")
+            bet = 0
+            while True:
+                try:
+                    bet = float(input("Enter your bet to start off the round.(or type in 0 dollars to leave the table.)"))
+                except ValueError:
+                    print("Sorry, that bet was invalid")
+                    continue
+                if bet == 0:
+                    blackjack = False
+                    break
+                if bet <= money and bet > 0:
+                    break
+                if bet > money or bet <= 0:
+                    print("enter a valid bet dude...")
+                    continue
+                else:
+                    break
+            if blackjack == False:
+                break
+            print("Your bet is, ", bet)
+            compace = 1
+            winmoney = bet * (2)
+            while True:
+                try:
+                    pnum1 = random.choice(deck)
+                    deck.remove(pnum1)
+                    pnum2 = random.choice(deck)
+                    deck.remove(pnum2)
+                    cnum1 = random.choice(deck)
+                    deck.remove(cnum1)
+                    cnum2 = random.choice(deck)
+                    deck.remove(cnum2)
+                except IndexError:
+                    print("The deck needs to re-shuffle...")
+                    deck = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,
+                            3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+                            6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
+                            8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10,
+                            10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12,
+                            12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,]
+                else:
+                    break
+###THIS IS WHERE THE DEALERS CARDS ARE
+            if cnum1 >= 11:
+                if cnum1 == 11:
+                    card1 = "Jack"
+                    cnum1 = 10
+                if cnum1 == 12:
+                    card1 = "Queen"
+                    cnum1 = 10
+                if cnum1 == 13:
+                    card1 = "King"
+                    cnum1 = 10
+                if cnum1 == 14:
+                    numace1 = 21 - cnum2
+                    if numace1 <=10:
+                        cnum1 = 11
+                    else:
+                        cnum1 = 1
+            if cnum2 >= 11:
+                if cnum2 == 11:
+                    card2 = "Jack"
+                    cnum2 = 10
+                if cnum2 == 12:
+                    card2 = "Queen"
+                    cnum2 = 10
+                if cnum2 == 13:
+                    card2 = "King"
+                    cnum2 = 10
+                if cnum2 == 14:
+                    numace2 = 21 - cnum1
+                    if numace2 <= 10:
+                        cnum2 = 11
+                    else:
+                        cnum2 = 1
+            computer = cnum1 + cnum2
+####THIS IS WHERE THE PLAYER'S CARDS COME INTO PLAY
+            print("The dealer has a face up,", cnum1, ""
+                "\nand another card face down")
+            if pnum1 == 10:
+                print("Your first number is a 10")
+            if pnum1 == 11:
+                pnum1 = 10
+                print("Your first number is a Jack value of 10")
+            elif pnum1 == 12:
+                pnum1 = 10
+                print("Your first number is a Queen value of 10")
+            elif pnum1 == 13:
+                print("Your first number is a King value of 10")
+                pnum1 = 10
+            if pnum2 == 11:
+                face2 = "jack"
+                pnum2 = 10
+            if pnum2 == 12:
+                face2 = "queen"
+                pnum2 = 10
+            if pnum2 == 13:
+                face2 = "king"
+                pnum2 = 10
+            if pnum2 == 14:
+                face2 = "ace"
+            if pnum1 == 1 or pnum1 == 14:
+                while True:
+                    try:
+                       print("Your first number was an ace while your second was, ", pnum2)
+                       aces = input("Would you like it to be high or low,").lower()
+                    except ValueError:
+                       print("Sorry you didnt enter one of two anwsers")
+                       continue
+                    if aces == "high":
+                        print("high got it")
+                        pnum1 = 11
+                        break
+                    if aces == "low":
+                        print("low cool")
+                        pnum1 = 1
+                        break
+                    if aces != "high" and aces != "low":
+                        print("high or low dude")
+                        continue
+                    else:
+                        break
+            if pnum1 <= 9 and pnum1 >= 2:
+                print(pnum1, "is your first number")
+            if pnum2 == 10:
+                print("10 was your second number")
+            elif pnum2 == 11:
+                pnum2 = 10
+                print("Your second number is a Jack value of 10")
+            elif pnum2 == 12:
+                pnum2 = 10
+                print("Your second number is a Queen value of 10")
+            elif pnum2 == 13:
+                print("Your second number is a King value of 10 ")
+                pnum2 = 10
+            if pnum2 <= 9 and pnum2 >= 2:
+                print(pnum2, "is your second number")
+            if pnum2 == 1 or pnum2 == 14:
+                while True:
+                    try:
+                        aces2 = input("Your second card was an ace would you like it to be high or low").lower()
+                    except ValueError:
+                        print("You did not put in one of the two choice to anwer with")
+                        continue
+                    if aces2 == "high":
+                        print("high it is")
+                        pnum2 = 11
+                        break
+                    if aces2 == "low":
+                        print("low it is")
+                        pnum2 = 1
+                        break
+                    if aces2 != "high" and aces2 != "low":
+                        print("high or low dude...")
+                        continue
+                    else:
+                        break
+            add = pnum1 + pnum2
+            print(add, "is what your numbers add to")
+### THIS IS WHEN THE PLAYER HITS FOR CARDS
+            hits = 0
+            while add < 21 or add == 21:
+                while True:
+                    try:
+                        print("You have, ", add,)
+                        hit = input("hit?? yes or no").lower()
+                    except ValueError:
+                        print("Invalid response")
+                        continue
+                    if hit != "yes" and hit != "no":
+                        print("yes or no man")
+                        os.system('clear')
+                        continue
+                    else:
+                        break
+                hits += 1
+                if hits == 2:
+                    double = input("Would you like to double down? (Yes or no)")
+                    dblamt = bet * 2
+                    if dblamt <= money:
+                        if double == "yes":
+                            bet = bet * 2
+                    if dblamt > money:
+                        print("You do not have enough money to double down")
+                if hit == "yes":
+                    pnum6 = 0
+                    while True:
+                        try:
+                            pnum6 = random.choice(deck)
+                            deck.remove(pnum6)
+                        except IndexError:
+                            print("The deck needs to re-shuffle...")
+                            deck = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,
+                                3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+                                6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
+                                8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10,
+                                10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12,
+                                12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,]
+                        if pnum6 >= 11:
+                            pnum6 = 10
+                        else:
+                            break
+                    add += pnum6
+                else:
+                    break
+###THIS IS WHERE THE PLAYER PARTS ENDS AND THE PROGRAM SHOULD DO THE REST
+            print("You ended with, ", add, )
+            print("Its the dealers turn now!!")
+            print("The dealer has a, ", cnum1, "The other card is turned upside down")
+            if cnum1 == 1 or cnum1 == 11 and cnum2 == 10:
+                if add == 21:
+                    print("The dealer flips the second card to reveal a 10 making his first card ace high so...")
+                    print("You and the dealer both got black jack congratulations.... kinda")
+                    money = winmoney / 2
+                    continue
+                else:
+                    print("The dealer's second card is a 10 so...")
+                    print("The dealer got black jack")
+                    money -= bet
+                    continue
+            if cnum1 == 10 and cnum2 == 1 or cnum2 == 11:
+                if add == 21:
+                    print("The dealer flips his second card to reveal an automatic high ace so....")
+                    print("You both got black jack nice job... kinda")
+                    money = winmoney / 2
+                    continue
+                else:
+                    print("The dealer flips his second card to reveal an ace so....")
+                    print("The dealer got black jack, what a shame, you lost")
+                    money -= bet
+                    continue
+            print("Since your turn is over the dealer will flip his card")
+            print(" Remember, you ended with, ", add, )
+            print("Revealing 2 cards with each having a value of,", cnum1, "and", cnum2, "total of,", computer,)
+            while computer <17:
+                print("The dealer has, ", computer)
+                print("The dealer hit ")
+                while True:
+                    try:
+                        cnum3 = random.choice(deck)
+                        deck.remove(cnum3)
+                    except IndexError:
+                        print ("Deck needs to shuffle...")
+                        deck = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,
+                        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+                        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8,
+                        8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10,
+                        10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12,
+                        12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,]
+                    else:
+                        break
+                if cnum3 >= 11:
+                    cnum3 = 10
+                computer += cnum3
+                print("He got, ", cnum3, "and he equals to, ", computer)
+                if computer >= 17:
+                    break
+            if computer == add:
+                print("You both got the same number... The house will give you some money.")
+                money += 50
+                continue
+            elif computer > 21 and add < 21:
+                print("The dealer broke and you did not congrats")
+                money += winmoney
+                continue
+            elif computer < 21 and add > 21:
+                print("You brok and the dealer did not what a shame")
+                money -= bet
+                continue
+            elif computer == 21 and add != 21:
+                print("The dealer jot blackjack and you did not")
+                money -= bet
+                continue
+            elif computer > 21 and add < 21:
+                print("The dealer broke 21 you won")
+                money += winmoney
+                continue
+            elif computer > 21 and add > 21:
+                print("You both lost you wont lose that much ")
+                money -= 50
+                continue
+            elif computer != 21 and add == 21:
+                print("Nice job you got Black Jack and the dealer did not!!")
+                money += winmoney
+                continue
+            elif computer < 21 and add <21 and computer > add:
+                print("the dealer won and you lost what a shame")
+                money -= bet
+                continue
+            elif computer <21 and add <21 and computer < add:
+                print("Nice you have won you were closer to 21 than the dealer")
+                money += winmoney
+                continue
+            if money < 0 or money == 0:
+                continue
+    if playing == True and casino == False:
+        continue
+    y = " "
+    endsave = " "
+    if money == 0:
+        print("You have ran out of money and lost")
+        while True:
+            try:
+                y = input("Would you like to play again? yes or no").lower()
+            except ValueError:
+                print("Sorry you did not enter yes or no go again")
+                continue
+            else:
+                break
+        if y == "yes":
+            playagain = True
+        else:
+            playagain = False
+            end = True
+if end == True:
+    print("thanks for playing!!!")
+    input("Press enter to quit")
